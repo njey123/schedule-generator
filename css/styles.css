@@ -1,0 +1,43 @@
+* {
+  font-family: 'Oxygen', sans-serif;
+}
+
+a {
+  cursor: pointer;
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+}
+
+.homepage-header-background {
+  width: 100%;
+  background-color: cornflowerblue;
+  align-items: center;
+}
+
+.homepage-header {
+  margin: 2em 2em;
+  color: white;
+}
+
+.homepage-background {
+  width: 100%;
+  height: 100vh;
+  background-color: #e0e9fb;
+  align-items: center;
+}
+
+.homepage-text {
+  margin: 2.5em 4em;
+  font-size: 18px;
+  color: black;
+}
+
+.homepage-text input {
+  width: 100%;
+  padding: 5px 5px;
+  border: solid 1px #5077bd;
+  border-radius: 5px;
+}
