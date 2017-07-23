@@ -2,10 +2,6 @@
   font-family: 'Oxygen', sans-serif;
 }
 
-a {
-  cursor: pointer;
-}
-
 .container-fluid {
   padding: 0;
   margin: 0;
@@ -38,6 +34,12 @@ a {
 .homepage-text input {
   width: 100%;
   padding: 5px 5px;
-  border: solid 1px #5077bd;
+  border: solid 1px #cccccc;
   border-radius: 5px;
+}
+
+.courseList div {
+  display: inline-block;
+  clear: both;
+  float: left;
 }
