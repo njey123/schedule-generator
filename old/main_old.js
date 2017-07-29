@@ -13,6 +13,50 @@ function main() {
 
     // Else if Enter is pressed
     } else if (keyCode == '13') {
+      // var xhr = createCORSRequest('PUT', scheduleOfClassesURL);
+      // // xhr.setRequestHeader('Access-Control-Allow-Origin ', '*');
+      // // xhr.setRequestHeader('Access-Control-Allow-Headers ', 'X-Requested-With');
+      // 
+      // if (!xhr) {
+      //   alert('CORS not supported');
+      //   return;
+      // }
+      // 
+      // // Response handlers
+      // xhr.onload = function() {
+      //   // var text = xhr.responseText;
+      //   // var title = getTitle(text);
+      //   // console.log('Response from CORS request to ' + scheduleOfClassesURL + ': ' + title);
+      //   alert("Hello!");
+      // };
+      // 
+      // xhr.onerror = function() {
+      //   alert('An error occurred making the request.');
+      // };
+      // 
+      // xhr.send();
+
+      // $.ajax({
+      //     type: "GET",
+      //     url: scheduleOfClassesURL,
+      //     contentType: "text/plain",
+      //     crossDomain: true,
+      //     dataType: 'jsonp',          
+      //     // beforeSend: function(xhr) {
+      //     //    xhr.setRequestHeader('Access-Control-Allow-Origin ', '*');
+      //     //    xhr.setRequestHeader('Access-Control-Allow-Headers ', 'X-Requested-With');
+      //     // },
+      //     success: function (response) {
+      //         // var resp = JSON.parse(response);
+      //         // alert(resp.status);
+      //         // alert(JSON.stringify(data));
+      //         alert("Success!");
+      //     },
+      //     error: function (xhr, status) {
+      //         alert("An error occurred making the request.");
+      //     }
+      // });
+
       var data = { 
         scheduleOfClassesURL: scheduleOfClassesURL
       };
@@ -22,6 +66,19 @@ function main() {
       promise.done(function(response) { 
         console.log(response); 
       });
+
+      // $.ajax({
+      //   dataType: "json",
+      //   url: "cors2.php",
+      //   data: data,
+      //   success: function (response) {
+      //     alert("Success!");
+      //     console.log(response);
+      //   },
+      //   error: function (xhr, status) {
+      //     alert("An error occurred making the request.");
+      //   }
+      // });
 
       return false;
     }

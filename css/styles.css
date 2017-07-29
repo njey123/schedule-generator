@@ -42,4 +42,5 @@
   display: inline-block;
   clear: both;
   float: left;
+  cursor: pointer;
 }
