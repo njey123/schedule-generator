@@ -27,7 +27,7 @@ function main() {
         scheduleOfClassesURL: scheduleOfClassesURL
       };
 
-      var promise = $.getJSON("php/getURLInfo.php", inputData);
+      var promise = $.getJSON("php/getWebpageInfo.php", inputData);
       
       promise.done(function(response) { 
         data = response;
@@ -54,9 +54,12 @@ function main() {
       // If course input is empty
       if (courseToAdd.length === 0) {
         return false;
+      // If course input is not empty, check if it is valid
       } else {
         for(var i = 0; i < data.length; i++) {
+          // If valid course
           if (courseToAdd === data[i]["courseCode"]) {
+            // List course on homepage
             $(".courseList").append('<div class="item">' + "• " + courseToAdd + '</div>');
   
             var element = document.getElementById("courseListID");
@@ -67,6 +70,8 @@ function main() {
               $(".courseList").prepend('<p class="descForCourseList">Displaying course timings for the following courses (click a course to remove it): </p>');
               isDescOnPage = true;
             }
+
+            addCourseToSchedule(courseToAdd);
           }
         }
         return false;
@@ -126,7 +131,7 @@ function main() {
     }
   }
 
-  // Create and display schedule
+  // Create and display a schedule layout
   function createScheduleLayout() {
     if (!isScheduleOnPage) {
       var scheduleLayout = '<table class="scheduleLayout"> <thead><tr><th>Time</th> <th>Monday</th> <th>Tuesday</th> <th>Wednesday</th> <th>Thursday</th> <th>Friday</th></tr></thead>';
@@ -152,6 +157,11 @@ function main() {
   
       isScheduleOnPage = true;
     }
+  }
+
+  // Add course to the schedule layout
+  function addCourseToSchedule(courseToAdd) {
+    
   }
 }
 
