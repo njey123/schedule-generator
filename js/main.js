@@ -31,6 +31,7 @@ function main() {
       
       promise.done(function(response) { 
         data = response;
+        console.log(data);
       });
 
       removeInvalidURLMessage();
@@ -71,7 +72,7 @@ function main() {
               isDescOnPage = true;
             }
 
-            addCourseToSchedule(courseToAdd);
+            addCourseToSchedule(i);
           }
         }
         return false;
@@ -83,6 +84,9 @@ function main() {
 
   // Remove a course when user clicks the course
   $(document).on('click', '.item', function() {
+    var courseCode = $(this).html();
+    courseCode = (courseCode.substring(courseCode.length-4, courseCode.length)).trim();
+    $('.' + courseCode).removeClass("schedule-highlighted");
     $(this).remove();
 
     var element = document.getElementById("courseListID");
@@ -95,24 +99,13 @@ function main() {
     }
   });
 
-  // // Parse HTML from Schedule of Classes webpage
-  // function parseHTML(response) {
-  //   var lines = response.split('\n');
-  //   var courseCodeLines = [];
-  //   var courseCodeIdx = 0;
-// 
-  //   for (var line = 0; line < lines.length; line++){
-  //     // Find course codes
-  //     if (lines[line] === '<TR><TD ALIGN="center">BME     </TD>') {
-  //       // console.log(lines[line + 1]);
-  //       courseCodeLines[courseCodeIdx] = lines[line];
-  //       courseCodeIdx++;
-  //     } 
-  //   }
-  // }
-
   // Notify user of invalid URL
   function addInvalidURLMessage() {
+    if(isDescOnPage) {
+      $(".item").remove();
+      $(".descForCourseList").remove();
+      isDescOnPage = false;
+    }
     if (isScheduleOnPage) {
       $(".scheduleLayout").remove();
       isScheduleOnPage = false;
@@ -133,21 +126,32 @@ function main() {
 
   // Create and display a schedule layout
   function createScheduleLayout() {
+    // If there is no schedule on the page, create a schedule
     if (!isScheduleOnPage) {
       var scheduleLayout = '<table class="scheduleLayout"> <thead><tr><th>Time</th> <th>Monday</th> <th>Tuesday</th> <th>Wednesday</th> <th>Thursday</th> <th>Friday</th></tr></thead>';
       scheduleLayout += "<tbody>";
   
-      for (var i = 8; i < 12; i++) {
-        scheduleLayout += '<tr><td>' + i + ':00AM</td><td></td><td></td><td></td><td></td><td></td></tr>';
-        scheduleLayout += '<tr><td>' + i + ':30AM</td><td></td><td></td><td></td><td></td><td></td></tr>';
+      for (var i = 8; i < 10; i++) {
+        scheduleLayout += '<tr><td>' + i + ':00AM</td><td id="s0' + i + '00AM-M"></td><td id="s0' + i + '00AM-T"></td><td id="s0' + i + '00AM-W"></td><td id="s0' + i + '00AM-Th"></td><td id="s0' + i + '00AM-F"></td></tr>';
+        scheduleLayout += '<tr><td>' + i + ':30AM</td><td id="s0' + i + '30AM-M"></td><td id="s0' + i + '30AM-T"></td><td id="s0' + i + '30AM-W"></td><td id="s0' + i + '30AM-Th"></td><td id="s0' + i + '30AM-F"></td></tr>';
+      }
+
+      for (var i = 10; i < 12; i++) {
+        scheduleLayout += '<tr><td>' + i + ':00AM</td><td id="s' + i + '00AM-M"></td><td id="s' + i + '00AM-T"></td><td id="s' + i + '00AM-W"></td><td id="s' + i + '00AM-Th"></td><td id="s' + i + '00AM-F"></td></tr>';
+        scheduleLayout += '<tr><td>' + i + ':30AM</td><td id="s' + i + '30AM-M"></td><td id="s' + i + '30AM-T"></td><td id="s' + i + '30AM-W"></td><td id="s' + i + '30AM-Th"></td><td id="s' + i + '30AM-F"></td></tr>';
       }
   
-      scheduleLayout += '<tr><td>12:00PM</td><td></td><td></td><td></td><td></td><td></td></tr>';
-      scheduleLayout += '<tr><td>12:30PM</td><td></td><td></td><td></td><td></td><td></td></tr>';
+      scheduleLayout += '<tr><td>12:00PM</td><td id="s12:00PM-M"></td><td id="s12:00PM-T"></td><td id="s12:00PM-W"></td><td id="s12:00PM-Th"></td><td id="s12:00PM-F"></td></tr>';
+      scheduleLayout += '<tr><td>12:30PM</td><td id="s12:30PM-M"></td><td id="s12:30PM-T"></td><td id="s12:30PM-W"></td><td id="s12:30PM-Th"></td><td id="s12:30PM-F"></td></tr>';
   
-      for (var i = 1; i < 12; i++) {
-        scheduleLayout += '<tr><td>' + i + ':00PM</td><td></td><td></td><td></td><td></td><td></td></tr>';
-        scheduleLayout += '<tr><td>' + i + ':30PM</td><td></td><td></td><td></td><td></td><td></td></tr>';
+      for (var i = 1; i < 10; i++) {
+        scheduleLayout += '<tr><td>' + i + ':00PM</td><td id="s0' + i + '00PM-M"></td><td id="s0' + i + '00PM-T"></td><td id="s0' + i + '00PM-W"></td><td id="s0' + i + '00PM-Th"></td><td id="s0' + i + '00PM-F"></td></tr>';
+        scheduleLayout += '<tr><td>' + i + ':30PM</td><td id="s0' + i + '30PM-M"></td><td id="s0' + i + '30PM-T"></td><td id="s0' + i + '30PM-W"></td><td id="s0' + i + '30PM-Th"></td><td id="s0' + i + '30PM-F"></td></tr>';
+      }
+
+      for (var i = 10; i < 12; i++) {
+        scheduleLayout += '<tr><td>' + i + ':00PM</td><td id="s' + i + '00PM-M"></td><td id="s' + i + '00PM-T"></td><td id="s' + i + '00PM-W"></td><td id="s' + i + '00PM-Th"></td><td id="s' + i + '00PM-F"></td></tr>';
+        scheduleLayout += '<tr><td>' + i + ':30PM</td><td id="s' + i + '30PM-M"></td><td id="s' + i + '30PM-T"></td><td id="s' + i + '30PM-W"></td><td id="s' + i + '30PM-Th"></td><td id="s' + i + '30PM-F"></td></tr>';
       }
       
       scheduleLayout += "</tbody>";
@@ -156,12 +160,84 @@ function main() {
       $(".schedule").append(scheduleLayout);
   
       isScheduleOnPage = true;
+    // If there is a schedule on the page, remove it and create a new one
+    } else if (isScheduleOnPage) {
+      $(".scheduleLayout").remove();
+      $(".courseList").empty();
+
+      isScheduleOnPage = false;
+      isDescOnPage = false;
+      
+      createScheduleLayout();
     }
   }
 
-  // Add course to the schedule layout
-  function addCourseToSchedule(courseToAdd) {
-    
+  // Add course with specific course code to the schedule layout
+  function addCourseToSchedule(courseCodeIdx) {
+    for (var i = 0; i < data[courseCodeIdx]["time"].length; i++) {
+      var courseCode = data[courseCodeIdx]["courseCode"];
+      var time = data[courseCodeIdx]["time"][i];
+      var startTimeHour = data[courseCodeIdx]["startTimeHour"][i];
+      var startTimeMinute = data[courseCodeIdx]["startTimeMinute"][i];
+      var endTimeHour = data[courseCodeIdx]["endTimeHour"][i];
+      var endTimeMinute = data[courseCodeIdx]["endTimeMinute"][i];
+      var days = data[courseCodeIdx]["days"][i];
+
+      if (days.length !== 1 && days.trim() !== "Th") {
+        // For each day the course is taught
+        for(var dayIdx = 0; dayIdx < days.length; dayIdx++) {
+          var currHour = startTimeHour;
+          var currMinute = startTimeMinute;
+
+          // Morning class
+          if (parseInt(startTimeHour) > 7 && parseInt(startTimeHour) < 12) {
+            $('#s' + startTimeHour + startTimeMinute + 'AM-' + days[dayIdx]).addClass("schedule-highlighted");
+            $('#s' + startTimeHour + startTimeMinute + 'AM-' + days[dayIdx]).addClass(courseCode);
+          // Afternoon or evening class
+          } else {
+            $('#s' + startTimeHour + startTimeMinute + 'PM-' + days[dayIdx]).addClass("schedule-highlighted");
+            $('#s' + startTimeHour + startTimeMinute + 'PM-' + days[dayIdx]).addClass(courseCode); 
+          }
+        }
+      } else {
+        var currHour = startTimeHour;
+        var currMinute = startTimeMinute;
+
+        // Morning class
+        if (parseInt(startTimeHour) > 7 && parseInt(startTimeHour) < 12) {
+          $('#s' + startTimeHour + startTimeMinute + 'AM-' + days).addClass("schedule-highlighted");
+          $('#s' + startTimeHour + startTimeMinute + 'AM-' + days).addClass(courseCode);
+
+          // Fill schedule depending on time of course
+          while((parseInt(currHour) + 1 <= endTimeHour && parseInt(currMinute) + 30 !== parseInt(endTimeMinute) + 10) || (parseInt(currHour) + 2 <= endTimeHour && parseInt(currMinute) + 60 !== parseInt(endTimeMinute) + 10)) {
+            if(parseInt(currMinute) === 30) {
+              temp = parseInt(currHour) + 1;
+               if(parseInt(temp) < 10) {
+                 temp = "0" + temp;
+               }
+
+              $('#s' + temp + '00AM-' + days).addClass("schedule-highlighted");
+              $('#s' + temp + '00AM-' + days).addClass(courseCode);
+              currMinute = 0;
+
+            } else {
+              currHour++;
+              if(parseInt(currHour) < 10) {
+                currHour = "0" + currHour;
+              }
+
+              $('#s' + currHour + '30AM-' + days).addClass("schedule-highlighted");
+              $('#s' + currHour + '30AM-' + days).addClass(courseCode);
+              currMinute = 30;
+            }
+          }
+        // Afternoon or evening class
+        } else {
+          $('#s' + startTimeHour + startTimeMinute + 'PM-' + days).addClass("schedule-highlighted");
+          $('#s' + startTimeHour + startTimeMinute + 'PM-' + days).addClass(courseCode); 
+        }
+      }
+    }
   }
 }
 

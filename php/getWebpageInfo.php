@@ -14,7 +14,7 @@
   // Regular expression for department, including HTML tags (this helps to find the course code)
   $deptRegex = "/([A-Z]{2,4})     /";
 
-  $currCourseCodeIdx = -1;
+  $courseCodeIdx = -1;
   $data = array(
     array(
       "courseCode" => array(),
@@ -29,21 +29,17 @@
 
   // Find course codes and corresponding time and day of courses
   for ($line = 0; $line < count($lines); $line++){
-    // if (!(strcmp($lines[$line], '<TR><TD ALIGN="center">BME     </TD>'))) {
-    //     $currCourseCodeIdx++;
-    //     $dayTimeIdx = 0;
-    //     $data[$currCourseCodeIdx]["courseCode"] = strip_tags($lines[$line + 1]);
     if (preg_match($deptRegex, strip_tags($lines[$line]), $deptMatches)) {
-      $currCourseCodeIdx++;
+      $courseCodeIdx++;
       $dayTimeIdx = 0;
-      $data[$currCourseCodeIdx]["courseCode"] = strip_tags($lines[$line + 1]);
+      $data[$courseCodeIdx]["courseCode"] = strip_tags($lines[$line + 1]);
     } else if (preg_match($dayTimeRegex, strip_tags($lines[$line]), $matches)) {
-      $data[$currCourseCodeIdx]["time"][$dayTimeIdx] = $matches[1];
-      $data[$currCourseCodeIdx]["startTimeHour"][$dayTimeIdx] = $matches[2];
-      $data[$currCourseCodeIdx]["startTimeMinute"][$dayTimeIdx] = $matches[3];
-      $data[$currCourseCodeIdx]["endTimeHour"][$dayTimeIdx] = $matches[4];
-      $data[$currCourseCodeIdx]["endTimeMinute"][$dayTimeIdx] = $matches[5];
-      $data[$currCourseCodeIdx]["days"][$dayTimeIdx] = $matches[count($matches) - 1];
+      $data[$courseCodeIdx]["time"][$dayTimeIdx] = $matches[1];
+      $data[$courseCodeIdx]["startTimeHour"][$dayTimeIdx] = $matches[2];
+      $data[$courseCodeIdx]["startTimeMinute"][$dayTimeIdx] = $matches[3];
+      $data[$courseCodeIdx]["endTimeHour"][$dayTimeIdx] = $matches[4];
+      $data[$courseCodeIdx]["endTimeMinute"][$dayTimeIdx] = $matches[5];
+      $data[$courseCodeIdx]["days"][$dayTimeIdx] = $matches[count($matches) - 1];
 
       $dayTimeIdx++;
     } 

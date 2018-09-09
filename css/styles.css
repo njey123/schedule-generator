@@ -53,6 +53,11 @@
   margin: 0 3em;
 }
 
+.schedule-highlighted {
+  background: lime;
+  border-bottom: 3px solid lime;
+}
+
 table {
   width: 80%;
   margin: 3em auto;
@@ -72,8 +77,9 @@ tr {
 }
 
 th, td {
-  padding: 10px 20px;
+  padding: 5px 20px;
   font-size: 18px;
+  border-right: 3px solid white;
   text-align: left;
 }
 
